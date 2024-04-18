@@ -282,13 +282,13 @@ Config.Gangs = {
 
 -----------##############-------------------Blip Creator-------------------##############-----------
 Config.Blips = {
-    {
-        name = "Hawaii",           -- Name of the blip
-        coords = vector3(0, 0, 0), -- Coords of the blip
-        sprite = 270,              -- Blip sprite
-        color = 50,                -- Blip color
-        size = 0.5,                -- Blip size
-        display = 4,               -- Blip display
-        range = true,              -- Blip range
-    },
+    -- {
+    --     name = "Hawaii",           -- Name of the blip
+    --     coords = vector3(0, 0, 0), -- Coords of the blip
+    --     sprite = 270,              -- Blip sprite
+    --     color = 50,                -- Blip color
+    --     size = 0.5,                -- Blip size
+    --     display = 4,               -- Blip display
+    --     range = true,              -- Blip range
+    -- },
 }

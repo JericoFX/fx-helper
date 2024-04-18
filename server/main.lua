@@ -1,6 +1,5 @@
 local ox_inventory = exports.ox_inventory
 
-
 CreateThread(function()
     Wait(100)
     for k, v in pairs(Config.Job) do
