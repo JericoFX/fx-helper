@@ -1,0 +1,15 @@
+{
+  "client": {
+    "boss": {
+      "not_boss": "You do not have the rank to open the Boss Menu"
+    },
+    "vehicle": {
+      "save_vehicle_promp": "[E] Save Vehicle",
+      "save_vehicle_header": "Save Vehicle",
+      "save_vehicle_question": "Are you sure you want to store the vehicle?"
+    },
+    "garage": {
+      "garage_title": "Garage Menu"
+    }
+  }
+}

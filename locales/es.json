@@ -1,0 +1,15 @@
+{
+  "client": {
+    "boss": {
+      "not_boss": "No tienes el rango para abrir el Menu de Jefe"
+    },
+    "vehicle": {
+      "save_vehicle_promp": "[E] Guardar Vehiculo",
+      "save_vehicle_header": "Guardar Vehiculo",
+      "save_vehicle_question": "¿Estas seguro de que quieres guardar el vehiculo?"
+    },
+    "garage": {
+      "garage_title": "Menu del Garage"
+    }
+  }
+}

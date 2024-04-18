@@ -1,3 +1,4 @@
+lib.locale()
 local QBCore = exports["qb-core"]:GetCoreObject()
 local PlayerData = {}
 local puntos = {
@@ -181,7 +182,7 @@ CreateThread(function()
 				elseif self.currentDistance < 1.5 and IsControlJustReleased(0, 38) and (PlayerData.job.name == el.id and not PlayerData.job.isboss) then
 					lib.notify({
 						type = "error",
-						description = "You are not the boss of the gang"
+						description = locale("client.boss.not_boss")
 					})
 					return
 				end
@@ -218,7 +219,7 @@ CreateThread(function()
 			if el.garage and el.garage.sacarvehiculo then
 				lib.registerMenu({
 					id = el.id .. "_Menu",
-					title = 'Garage Menu',
+					title = locale("client.garage.garage_title"),
 					position = 'top-right',
 					options = el.garage.options
 				}, function(selected, scrollIndex, args)
@@ -258,7 +259,7 @@ CreateThread(function()
 				})
 				function point2:onEnter()
 					if cache.vehicle then
-						lib.showTextUI("[E] Save Vehicle")
+						lib.showTextUI(locale("client.vehicle.save_vehicle_promp"))
 					end
 				end
 
@@ -274,8 +275,8 @@ CreateThread(function()
 					if self.currentDistance < 3 and IsControlJustReleased(0, 38) and PlayerData.job.name == el.id then
 						local veh = cache.vehicle
 						local alert = lib.alertDialog({
-							header = 'Save Vehicle',
-							content = '¿Save Vehicle?',
+							header = locale("client.vehicle.save_vehicle_header"),
+							content = locale("client.vehicle.save_vehicle_question"),
 							centered = true,
 							cancel = true
 						})
@@ -333,7 +334,7 @@ CreateThread(function()
 				elseif self.currentDistance < 1.5 and IsControlJustReleased(0, 38) and (PlayerData.gang.name == el.id and not PlayerData.gang.isboss) then
 					lib.notify({
 						type = "error",
-						description = "You are not the boss of the gang"
+						description = locale("client.boss.not_boss")
 					})
 				end
 			end
@@ -368,7 +369,7 @@ CreateThread(function()
 		if el.garage then
 			lib.registerMenu({
 				id = el.id .. "_Menu",
-				title = 'Garage Menu',
+				title = locale("client.garage.garage_title"),
 				position = 'top-right',
 				options = el.garage.options
 			}, function(selected, scrollIndex, args)
@@ -406,7 +407,7 @@ CreateThread(function()
 			})
 			function point2:onEnter()
 				if cache.vehicle then
-					lib.showTextUI("[E] Save Vehicle")
+					lib.showTextUI(locale("client.vehicle.save_vehicle_promp"))
 				end
 			end
 
@@ -421,8 +422,8 @@ CreateThread(function()
 				if self.currentDistance < 1 and IsControlJustReleased(0, 38) and PlayerData.gang.name == el.id then
 					local veh = cache.vehicle
 					local alert = lib.alertDialog({
-						header = 'Save Vehicle',
-						content = '¿Do you want to save Vehicle?',
+						header = locale("client.vehicle.save_vehicle_header"),
+						content = locale("client.vehicle.save_vehicle_question"),
 						centered = true,
 						cancel = true
 					})
