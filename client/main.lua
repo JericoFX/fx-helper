@@ -83,7 +83,6 @@ CreateThread(function()
 	for k, v in pairs(Config.Job) do
 		local el = Config.Job[k]
 		if el ~= nil then
-			--	print("1", k, el.stash)
 			if el.stash then
 				if type(el.stash) == "table" then
 					for i = 1, #el.stash do
@@ -127,7 +126,6 @@ CreateThread(function()
 									40, 200, 80, 70, false, true, 2, false, nil, nil, false)
 
 								if self.currentDistance < 1 and IsControlJustReleased(0, 38) then
-									print(k, PlayerData.job.name)
 									exports.ox_inventory:openInventory("shop", { type = k, id = i })
 								end
 							end
@@ -147,7 +145,6 @@ CreateThread(function()
 								40, 200, 80, 70, false, true, 2, false, nil, nil, false)
 
 							if self.currentDistance < 1 and IsControlJustReleased(0, 38) then
-								print(k, PlayerData.job.name)
 								exports.ox_inventory:openInventory("shop", { type = k, id = 1 })
 							end
 						end
@@ -179,9 +176,15 @@ CreateThread(function()
 						false --[[drawon ents]]
 					)
 
-					if self.currentDistance < 2 and IsControlJustReleased(0, 38) and PlayerData.job.name == el.id and PlayerData.job.isboss then
-						TriggerEvent("qb-bossmenu:client:OpenMenu")
-					end
+				if self.currentDistance < 1.5 and IsControlJustReleased(0, 38) and (PlayerData.job.name == el.id and PlayerData.job.isboss) then
+					TriggerEvent("qb-gangmenu:client:OpenMenu")
+				elseif self.currentDistance < 1.5 and IsControlJustReleased(0, 38) and (PlayerData.job.name == el.id and not PlayerData.job.isboss) then
+					lib.notify({
+						type = "error",
+						description = "You are not the boss of the gang"
+					})
+					return
+				end
 				end
 			end
 			if el.blip then
@@ -289,152 +292,152 @@ CreateThread(function()
 		Wait(0)
 	end
 	-------············································--
-	-- for k, v in pairs(Config.Gangs) do
+	for k, v in pairs(Config.Gangs) do
 
-	--     local el = Config.Gangs[k]
+	    local el = Config.Gangs[k]
 
-	-- 	lib.zones.box({
-	-- 		coords = el.stash,
-	-- 		size = vec3(5, 5, 5),
-	-- 		rotation = 0,
-	-- 		debug = false,
-	-- 		inside = insideGang,
-	-- 		onEnter = onEnterGang,
-	-- 		onExit = onExitGang,
-	-- 		data = { gang = k, id = k },
-	-- 	})
-	-- 	if el.shop then
-	-- 		local point = lib.points.new({
-	-- 			coords = el.shop.locations[1],
-	-- 			distance = 3,
-	-- 		})
-	-- 		function point:nearby()
-	-- 			DrawMarker(29, self.coords.x, self.coords.y, self.coords.z, 0.0, 0.0, 0.0, 0.0, 180.0, 0.0, 1.0, 1.0, 1.0,
-	-- 				200, 20, 20, 50, false, true, 2, false, nil, nil, false)
-	-- 			if self.currentDistance < 1 and IsControlJustReleased(0, 38) then
-	-- 				exports.ox_inventory:openInventory("shop", { type = k, id = 1 })
-	-- 			end
-	-- 		end
-	-- 	end
-	-- 	if el.boss then
-	-- 		local point = lib.points.new({
-	-- 			coords = el.boss,
-	-- 			distance = 3,
-	-- 		})
-	-- 		function point:nearby()
-	-- 			DrawMarker(21, self.coords.x, self.coords.y, self.coords.z, 0.0, 0.0, 0.0, 0.0, 180.0, 0.0, 1.0, 1.0, 1.0,
-	-- 				200, 20, 20, 50, false, true, 2, false, nil, nil, false)
+		lib.zones.box({
+			coords = el.stash,
+			size = vec3(5, 5, 5),
+			rotation = 0,
+			debug = false,
+			inside = insideGang,
+			onEnter = onEnterGang,
+			onExit = onExitGang,
+			data = { gang = k, id = k },
+		})
+		if el.shop then
+			local point = lib.points.new({
+				coords = el.shop.locations[1],
+				distance = 3,
+			})
+			function point:nearby()
+				DrawMarker(29, self.coords.x, self.coords.y, self.coords.z, 0.0, 0.0, 0.0, 0.0, 180.0, 0.0, 1.0, 1.0, 1.0,
+					200, 20, 20, 50, false, true, 2, false, nil, nil, false)
+				if self.currentDistance < 1 and IsControlJustReleased(0, 38) then
+					exports.ox_inventory:openInventory("shop", { type = k, id = 1 })
+				end
+			end
+		end
+		if el.boss then
+			local point = lib.points.new({
+				coords = el.boss,
+				distance = 3,
+			})
+			function point:nearby()
+				DrawMarker(21, self.coords.x, self.coords.y, self.coords.z, 0.0, 0.0, 0.0, 0.0, 180.0, 0.0, 1.0, 1.0, 1.0,
+					200, 20, 20, 50, false, true, 2, false, nil, nil, false)
 
-	-- 			if self.currentDistance < 1.5 and IsControlJustReleased(0, 38) and (PlayerData.gang.name == el.id and PlayerData.gang.isboss) then
-	-- 				TriggerEvent("qb-gangmenu:client:OpenMenu")
-	-- 			elseif self.currentDistance < 1.5 and IsControlJustReleased(0, 38) and (PlayerData.gang.name == el.id and not PlayerData.gang.isboss) then
-	-- 				lib.notify({
-	-- 					type = "error",
-	-- 					description = "No sos el jefe de la banda"
-	-- 				})
-	-- 			end
-	-- 		end
-	-- 	end
-	-- 	if el.blip then
-	-- 		CreateThread(function()
-	-- 			puntos.blip[k] = AddBlipForCoord(el.stash.x, el.stash.y, el.stash.z)
-	-- 			SetBlipSprite(puntos.blip[k], el.blip.sprite)
-	-- 			SetBlipDisplay(puntos.blip[k], 4)
-	-- 			SetBlipScale(puntos.blip[k], 0.6)
-	-- 			SetBlipAsShortRange(puntos.blip[k], true)
-	-- 			SetBlipColour(puntos.blip[k], el.blip.color)
-	-- 			BeginTextCommandSetBlipName("STRING")
-	-- 			AddTextComponentSubstringPlayerName(el.blip.label)
-	-- 			EndTextCommandSetBlipName(puntos.blip[k])
-	-- 		end)
-	-- 	end
-	-- 	if el.cloth then
-	-- 		local point = lib.points.new({
-	-- 			coords = el.cloth,
-	-- 			distance = 3,
-	-- 		})
-	-- 		function point:nearby()
-	-- 			DrawMarker(23, self.coords.x, self.coords.y, self.coords.z, 0.0, 0.0, 0.0, 0.0, 180.0, 0.0, 1.0, 1.0, 1.0,
-	-- 				255, 255, 255, 255, false, true, 2, false, nil, nil, false)
+				if self.currentDistance < 1.5 and IsControlJustReleased(0, 38) and (PlayerData.gang.name == el.id and PlayerData.gang.isboss) then
+					TriggerEvent("qb-gangmenu:client:OpenMenu")
+				elseif self.currentDistance < 1.5 and IsControlJustReleased(0, 38) and (PlayerData.gang.name == el.id and not PlayerData.gang.isboss) then
+					lib.notify({
+						type = "error",
+						description = "You are not the boss of the gang"
+					})
+				end
+			end
+		end
+		if el.blip then
+			CreateThread(function()
+				puntos.blip[k] = AddBlipForCoord(el.stash.x, el.stash.y, el.stash.z)
+				SetBlipSprite(puntos.blip[k], el.blip.sprite)
+				SetBlipDisplay(puntos.blip[k], 4)
+				SetBlipScale(puntos.blip[k], 0.6)
+				SetBlipAsShortRange(puntos.blip[k], true)
+				SetBlipColour(puntos.blip[k], el.blip.color)
+				BeginTextCommandSetBlipName("STRING")
+				AddTextComponentSubstringPlayerName(el.blip.label)
+				EndTextCommandSetBlipName(puntos.blip[k])
+			end)
+		end
+		if el.cloth then
+			local point = lib.points.new({
+				coords = el.cloth,
+				distance = 3,
+			})
+			function point:nearby()
+				DrawMarker(23, self.coords.x, self.coords.y, self.coords.z, 0.0, 0.0, 0.0, 0.0, 180.0, 0.0, 1.0, 1.0, 1.0,
+					255, 255, 255, 255, false, true, 2, false, nil, nil, false)
 
-	-- 			if self.currentDistance < 1 and IsControlJustReleased(0, 38) and (PlayerData.gang.name == el.id) then
-	-- 				TriggerEvent("qb-clothing:client:openOutfitMenu")
-	-- 			end
-	-- 		end
-	-- 	end
-	-- 	if el.garage then
-	-- 		lib.registerMenu({
-	-- 			id = el.id .. "_Menu",
-	-- 			title = 'Garage Menu',
-	-- 			position = 'top-right',
-	-- 			options = el.garage.options
-	-- 		}, function(selected, scrollIndex, args)
-	-- 			if args.hash then
-	-- 				QBCore.Functions.TriggerCallback('QBCore:Server:SpawnVehicle', function(netId)
-	-- 					local veh = NetToVeh(netId)
-	-- 					SetVehicleNumberPlateText(veh, el.id .. tostring(math.random(1000, 9999)))
-	-- 					SetEntityHeading(veh, el.garage.spawn.w)
-	-- 					exports['LegacyFuel']:SetFuel(veh, 100.0)
-	-- 					TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
-	-- 					TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
-	-- 					if el.garage?.livery[tostring(args.hash)] then
-	-- 						QBCore.Shared.SetDefaultVehicleExtras(veh, el.garage.livery[args.hash])
-	-- 					end
-	-- 					SetVehicleEngineOn(veh, true, true)
-	-- 				end, args.hash, el.garage.spawn, true)
-	-- 			end
-	-- 		end)
-	-- 		local point = lib.points.new({
-	-- 			coords = el.garage.sacarvehiculo,
-	-- 			distance = 3,
-	-- 		})
-	-- 		function point:nearby()
-	-- 			DrawMarker(39, self.coords.x, self.coords.y, self.coords.z, 0.0, 0.0, 0.0, 0.0, 180.0, 0.0, 1.0, 1.0, 1.0,
-	-- 				255, 255, 255, 255, false, true, 2, false, nil, nil, false)
+				if self.currentDistance < 1 and IsControlJustReleased(0, 38) and (PlayerData.gang.name == el.id) then
+					TriggerEvent("qb-clothing:client:openOutfitMenu")
+				end
+			end
+		end
+		if el.garage then
+			lib.registerMenu({
+				id = el.id .. "_Menu",
+				title = 'Garage Menu',
+				position = 'top-right',
+				options = el.garage.options
+			}, function(selected, scrollIndex, args)
+				if args.hash then
+					QBCore.Functions.TriggerCallback('QBCore:Server:SpawnVehicle', function(netId)
+						local veh = NetToVeh(netId)
+						SetVehicleNumberPlateText(veh, el.id .. tostring(math.random(1000, 9999)))
+						SetEntityHeading(veh, el.garage.spawn.w)
+						exports['LegacyFuel']:SetFuel(veh, 100.0)
+						TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
+						TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
+						if el.garage?.livery[tostring(args.hash)] then
+							QBCore.Shared.SetDefaultVehicleExtras(veh, el.garage.livery[args.hash])
+						end
+						SetVehicleEngineOn(veh, true, true)
+					end, args.hash, el.garage.spawn, true)
+				end
+			end)
+			local point = lib.points.new({
+				coords = el.garage.sacarvehiculo,
+				distance = 3,
+			})
+			function point:nearby()
+				DrawMarker(39, self.coords.x, self.coords.y, self.coords.z, 0.0, 0.0, 0.0, 0.0, 180.0, 0.0, 1.0, 1.0, 1.0,
+					255, 255, 255, 255, false, true, 2, false, nil, nil, false)
 
-	-- 			if self.currentDistance < 1 and IsControlJustReleased(0, 38) and PlayerData.gang.name == el.id then
-	-- 				lib.showMenu(el.id .. "_Menu")
-	-- 			end
-	-- 		end
+				if self.currentDistance < 1 and IsControlJustReleased(0, 38) and PlayerData.gang.name == el.id then
+					lib.showMenu(el.id .. "_Menu")
+				end
+			end
 
-	-- 		local point2 = lib.points.new({
-	-- 			coords = el.garage.devolucion,
-	-- 			distance = 3,
-	-- 		})
-	-- 		function point2:onEnter()
-	-- 			if cache.vehicle then
-	-- 				lib.showTextUI("[E] Guardar Vehiculo")
-	-- 			end
-	-- 		end
+			local point2 = lib.points.new({
+				coords = el.garage.devolucion,
+				distance = 3,
+			})
+			function point2:onEnter()
+				if cache.vehicle then
+					lib.showTextUI("[E] Save Vehicle")
+				end
+			end
 
-	-- 		function point2:onExit()
-	-- 			lib.hideTextUI()
-	-- 		end
+			function point2:onExit()
+				lib.hideTextUI()
+			end
 
-	-- 		function point2:nearby()
-	-- 			DrawMarker(42, self.coords.x, self.coords.y, self.coords.z, 0.0, 0.0, 0.0, 0.0, 180.0, 0.0, 1.0, 1.0, 1.0,
-	-- 				255, 0, 0, 255, false, true, 2, false, nil, nil, false)
+			function point2:nearby()
+				DrawMarker(42, self.coords.x, self.coords.y, self.coords.z, 0.0, 0.0, 0.0, 0.0, 180.0, 0.0, 1.0, 1.0, 1.0,
+					255, 0, 0, 255, false, true, 2, false, nil, nil, false)
 
-	-- 			if self.currentDistance < 1 and IsControlJustReleased(0, 38) and PlayerData.gang.name == el.id then
-	-- 				local veh = cache.vehicle
-	-- 				local alert = lib.alertDialog({
-	-- 					header = 'Guardar Vehiculo',
-	-- 					content = '¿Desea guardar el vehiculo?',
-	-- 					centered = true,
-	-- 					cancel = true
-	-- 				})
+				if self.currentDistance < 1 and IsControlJustReleased(0, 38) and PlayerData.gang.name == el.id then
+					local veh = cache.vehicle
+					local alert = lib.alertDialog({
+						header = 'Save Vehicle',
+						content = '¿Do you want to save Vehicle?',
+						centered = true,
+						cancel = true
+					})
 
-	-- 				if veh and alert == "confirm" then
-	-- 					TaskEveryoneLeaveVehicle(veh)
-	-- 					Wait(1000)
-	-- 					DeleteVehicle(veh)
-	-- 				end
-	-- 			end
-	-- 		end
-	-- 	end
-	-- 	Wait(0)
-	-- end
-	-- Wait(0)
+					if veh and alert == "confirm" then
+						TaskEveryoneLeaveVehicle(veh)
+						Wait(1000)
+						DeleteVehicle(veh)
+					end
+				end
+			end
+		end
+		Wait(0)
+	end
+	Wait(0)
 end)
 
 
