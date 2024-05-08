@@ -44,7 +44,7 @@ Config.Job = {
                 { name = "beer",      price = 1 },
 
             },
-            locations = { vec3(0, 0, 0) } -- Where the shop is, can be an array like { vector3(0, 0, 0), vector3(0, 0, 0) }
+            locations = { vec3(0, 0, 0) }, -- Where the shop is, can be an array like { vector3(0, 0, 0), vector3(0, 0, 0) }
             groups = { ["bahamas"] = 0 } -- Name and grade of the minimum job requeried to open the shop or false
         },
     },
