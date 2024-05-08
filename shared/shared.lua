@@ -45,9 +45,8 @@ Config.Job = {
 
             },
             locations = { vec3(0, 0, 0) } -- Where the shop is, can be an array like { vector3(0, 0, 0), vector3(0, 0, 0) }
-
+            groups = { ["bahamas"] = 0 } -- Name and grade of the minimum job requeried to open the shop or false
         },
-        groups = false -- Dont remember this one, but you can check the code, is open ;)
     },
     -- FIRE JOB EXAMPLE
     fire = {                                   -- Name of the job
@@ -90,7 +89,8 @@ Config.Job = {
                 { name = "WEAPON_FIREEXTINGUISHER", price = 0 }, -- Item | price}
                 { name = "WEAPON_HATCHET",          price = 0 }, -- Item | price}
             },
-            locations = { vec3(-630.9982, -123.6432, 39.2201) }  -- Where the shop is located
+            locations = { vec3(-630.9982, -123.6432, 39.2201) },  -- Where the shop is located
+            groups = false
         },
     },
 
@@ -109,7 +109,6 @@ Config.Job = {
             label = "Weazel News"
         },
         shop = false,
-        groups = false
     },
 
 }
