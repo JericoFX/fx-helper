@@ -17,7 +17,7 @@ CreateThread(function()
                 name = el.shop.name,
                 inventory = el.shop.inventory,
                 locations = el.shop.locations,
-                groups = false
+                groups = el.shop.groups
             })
         end
         Wait(0)
@@ -30,7 +30,7 @@ CreateThread(function()
                 name = el.shop.name,
                 inventory = el.shop.inventory,
                 locations = el.shop.locations,
-                groups = false
+                groups = el.shop.groups
             })
         end
         Wait(0)
